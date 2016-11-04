@@ -2,8 +2,8 @@ A static screen for coreos
 ==========================
 
 This is screen compiled statically for CoreOS. CoreOS does not have screen, so
-it is a bit painfull to have logn lasting jobs **without** restorting to a
-container, which many disadvandtages.
+it is a bit painfull to have long lasting jobs **without** using a
+container, which many disadvantages.
 
 You can build the whole thing with ./build.sh, and you should end up with a
 static binary in:
