@@ -67,3 +67,11 @@ To list the sessions:
     There is a screen on:
         27817.pts-0.hostname (Detached)
     1 Socket in /tmp/screens/S-root.
+
+You can also launch a session directly as core user instead of root:
+
+    $ sudo systemd-run --scope  /home/core/screen bash -c "su - core"
+    Update Strategy: No Reboots
+    core@registry00-k8s1 ~ $ whoami
+    core
+    core@registry00-k8s1 ~ $
