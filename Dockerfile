@@ -1,7 +1,7 @@
 FROM voidlinux/voidlinux-musl
 MAINTAINER Benjamin Henrion <zoobab@gmail.com>
 
-RUN xbps-install -Sy git make gcc libtool autoconf automake pkg-config wget ncurses ncurses-devel sudo
+RUN xbps-install -Sy make gcc libtool autoconf automake pkg-config wget ncurses ncurses-devel sudo
 
 ENV user core
 
