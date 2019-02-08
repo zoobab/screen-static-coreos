@@ -1,8 +1,8 @@
 FROM voidlinux/voidlinux-musl
 MAINTAINER Benjamin Henrion <zoobab@gmail.com>
 
-RUN xbps-install -Sy git make gcc gcc-c++ libtool autoconf automake pkg-config wget
-RUN xbps-install -Sy ncurses ncurses-devel
+RUN xbps-install -Sy git make gcc libtool autoconf automake pkg-config wget
+RUN xbps-install -Sy ncurses ncurses-devel sudo
 
 ENV user core
 
@@ -13,9 +13,9 @@ RUN chmod 0440 /etc/sudoers.d/$user
 USER $user
 
 WORKDIR /home/$user
-RUN wget http://ftp.gnu.org/gnu/screen/screen-4.4.0.tar.gz
-RUN tar -xvzf screen-4.4.0.tar.gz
-WORKDIR /home/$user/screen-4.4.0
+RUN wget http://ftp.gnu.org/gnu/screen/screen-4.6.2.tar.gz
+RUN tar -xvzf screen-4.6.2.tar.gz
+WORKDIR /home/$user/screen-4.6.2
 RUN ./configure
 COPY config.h .
 RUN make LDFLAGS="-static"
