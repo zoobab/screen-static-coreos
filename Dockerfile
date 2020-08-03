@@ -12,7 +12,8 @@ RUN chmod 0440 /etc/sudoers.d/$user
 USER $user
 
 #ENV VER 4.6.2
-ENV VER 4.7.0
+#ENV VER 4.7.0
+ENV VER 4.8.0
 
 WORKDIR /home/$user
 RUN wget http://ftp.gnu.org/gnu/screen/screen-$VER.tar.gz
@@ -26,6 +27,6 @@ RUN make LDFLAGS="-static"
 RUN ! ldd screen
 RUN file screen
 
-RUN upx -v -9 -o screen-upx screen
+RUN upx -v --brute -o screen-upx screen
 RUN ! ldd screen-upx
 RUN file screen-upx
