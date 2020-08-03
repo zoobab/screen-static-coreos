@@ -11,9 +11,9 @@ RUN chmod 0440 /etc/sudoers.d/$user
 
 USER $user
 
-#ENV VER 4.6.2
+ENV VER 4.6.2
 #ENV VER 4.7.0
-ENV VER 4.8.0
+#ENV VER 4.8.0
 
 WORKDIR /home/$user
 RUN wget http://ftp.gnu.org/gnu/screen/screen-$VER.tar.gz
