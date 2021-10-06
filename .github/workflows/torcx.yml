@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt install -y ninja-build
+
+      - uses: actions/checkout@v2
+
+      - run: make
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: 'torcx-addons'
+          path: 'torcx.*'
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: build
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: 'torcx-addons'
+
+      - id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_name: 'torcx.tgz'
+          asset_path: 'torcx.tgz'
+          asset_content_type: application/gzip
+
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_name: 'torcx.squashfs'
+          asset_path: 'torcx.squashfs'
+          asset_content_type: application/octet-stream
